@@ -76,7 +76,13 @@ BACKWARD_COMPATIBLE_OPERATIONS: List[SegmentLocator] = [
     ),
     SegmentLocator(type="create_sequence_statement"),
     SegmentLocator(type="alter_sequence_statement"),
-    SegmentLocator(type="create_table_statement"),
+    SegmentLocator(
+        type="create_table_statement",
+        children=[
+            KeywordLocator(raw="PRIMARY"),
+            KeywordLocator(raw="KEY"),
+        ],
+    ),
     SegmentLocator(
         type="alter_table_statement",
         children=[
@@ -356,6 +362,13 @@ RESTRICTED_OPERATIONS: List[SegmentLocator] = [
             KeywordLocator(raw="COLUMN"),
             KeywordLocator(raw="GENERATED"),
             KeywordLocator(raw="IDENTITY"),
+        ],
+    ),
+    SegmentLocator(
+        type="create_table_statement",
+        children=[
+            KeywordLocator(raw="PRIMARY", inverted=True),
+            KeywordLocator(raw="KEY", inverted=True),
         ],
     ),
 ]
