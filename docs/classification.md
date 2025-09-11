@@ -125,8 +125,86 @@ Backward-compatible migration
 > **WARNING**: If there are foreign keys, table creation requires
 > `ShareRowExclusiveLock` on the child tables, so use `lock_timeout`
 > if the table to create contains foreign keys. `ADD FOREIGN KEY ... NOT VALID`
-> does require the same lock, so it doesn’t make much sense
+> does require the same lock, so it doesn't make much sense
 > to create foreign keys separately.
+
+#### Primary Key Requirement
+
+**All newly created tables must have a primary key.** Tables without primary keys
+are classified as **RESTRICTED** operations and will cause the linter to fail.
+
+**Valid approaches:**
+
+**Column-level primary key:**
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
+```
+
+**Table-level primary key:**
+
+```sql
+CREATE TABLE users (
+    id INTEGER,
+    name TEXT,
+    PRIMARY KEY (id)
+);
+```
+
+**Named constraint:**
+
+```sql
+CREATE TABLE users (
+    id INTEGER,
+    name TEXT,
+    CONSTRAINT pk_users PRIMARY KEY (id)
+);
+```
+
+**Composite primary key:**
+
+```sql
+CREATE TABLE user_roles (
+    user_id INTEGER,
+    role_id INTEGER,
+    PRIMARY KEY (user_id, role_id)
+);
+```
+
+**UUID primary key:**
+
+```sql
+CREATE TABLE sessions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id INTEGER,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+**Why primary keys are required:**
+
+* Enables logical replication
+* Improves query performance and indexing
+* Provides row uniqueness guarantees
+* Required for many database tools and ORMs
+* Facilitates data consistency and referential integrity
+
+**Exception cases:**
+
+If you have a legitimate use case for a table without a primary key (such as
+temporary tables, log tables, or staging tables), you can ignore this specific
+migration using the annotation:
+
+```sql
+-- migration-lint:ignore
+CREATE TABLE temp_data_load (
+    raw_data TEXT,
+    imported_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
 
 ### Drop Table
 
