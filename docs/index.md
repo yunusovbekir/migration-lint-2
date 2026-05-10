@@ -153,8 +153,7 @@ migration-lint:
     MIGRATION_LINT_ALEMBIC_MIGRATIONS_PATH: "/app/alembic/versions/"
   script:
     - pip install migration-lint
-    - migration-lint --loader=gitlab_branch --extractor=alembic
-        --alembic-command="alembic upgrade head --sql"
+    - migration-lint --loader=gitlab_branch --extractor=alembic --alembic-command="alembic upgrade head --sql"
 ```
 
 #### How it works
