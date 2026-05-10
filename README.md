@@ -1,9 +1,5 @@
 # Migration Lint
 
-![ci status](https://github.com/pandadoc/migration-lint/actions/workflows/ci.yml/badge.svg)
-![Coverage](https://raw.githubusercontent.com/pandadoc/migration-lint/coverage-badge/coverage.svg)
-![Py Version](https://img.shields.io/pypi/pyversions/migration-lint.svg)
-
 `migration-lint` is a modular linter tool designed to perform checks on database schema migrations and prevent unsafe operations.
 
 ---

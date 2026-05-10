@@ -1,8 +1,8 @@
-site_name: packages/migration-lint
-site_url: https://pandadoc.github.io/migration-lint/
+site_name: packages/migration-lint-2
+site_url: https://github.com/yunusovbekir/migration-lint-2
 
-repo_name: pandadoc/migration-lint
-repo_url: https://github.com/pandadoc/migration-lint
+repo_name: yunusovbekir/migration-lint-2
+repo_url: https://github.com/yunusovbekir/migration-lint-2
 
 theme:
   name: material
@@ -43,13 +43,6 @@ theme:
     - search.highlight
     - toc.follow
     - toc.integrate
-
-extra:
-  social:
-    - icon: fontawesome/solid/paper-plane
-      link: mailto:migration-lint-team@pandadoc.com
-  version:
-    provider: mike
 
 markdown_extensions:
   - admonition

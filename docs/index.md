@@ -169,16 +169,3 @@ migration-lint:
 5. The extracted SQL is passed to the **linter** for analysis.
 
 ---
-
-## Feedback
-
-We value feedback and are committed to supporting engineers throughout
-their journey.
-
-We have a dedicated email where we encourage engineers to share their feedback,
-ask questions, and seek assistance with any issues they may encounter.
-We appreciate your input and look forward to engaging with you
-to make your experience even better.
-
-[:material-email: Write us!](mailto:migration-lint-team@pandadoc.com)
-{ .md-button .md-button--primary }
