@@ -126,11 +126,3 @@ See the [Classification documentation](docs/classification.md) for detailed patt
 | [Migration Classification](docs/classification.md) | Safe vs. unsafe migration patterns with SQL examples |
 | [Rules API](docs/rules.md) | How to define and use linting rules |
 | [Tags](docs/tags.md) | Tag reference |
-
----
-
-## Feedback
-
-Have a question or found an issue? Reach out to the team:
-
-📧 [migration-lint-team@pandadoc.com](mailto:migration-lint-team@pandadoc.com)
