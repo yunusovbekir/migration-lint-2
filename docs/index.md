@@ -58,14 +58,16 @@ migration-lint --loader=gitlab_branch --extractor=<extractor>
 ```
 
 It relies on default GitLab [environment variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html):
-`CI_PROJECT_ID`, `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME` (falls back to `CI_COMMIT_BRANCH`).
+`CI_SERVER_URL`, `CI_PROJECT_ID`, `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`
+(falls back to `CI_COMMIT_BRANCH`).
 You also need to issue a token with read permissions and put it into `CI_DEPLOY_GITLAB_TOKEN`.
+If `CI_SERVER_URL` is not available (for example, outside GitLab CI), pass `--gitlab-instance` explicitly.
 
 Parameters can also be passed explicitly:
 
 ```shell linenums="0"
 migration-lint --loader=gitlab_branch --extractor=<extractor> \
-  --project-id=<proj id> --branch=<branch> --gitlab-api-key=<key>
+  --gitlab-instance=<url> --project-id=<proj id> --branch=<branch> --gitlab-api-key=<key>
 ```
 
 ### GitLab MR
