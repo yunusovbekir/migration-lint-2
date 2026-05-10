@@ -14,7 +14,6 @@
 - [Rules](#rules)
 - [Migration Classification](#migration-classification)
 - [Documentation](#documentation)
-- [Feedback](#feedback)
 
 ---
 
