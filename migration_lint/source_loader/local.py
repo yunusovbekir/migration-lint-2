@@ -14,12 +14,29 @@ class LocalLoader(BaseSourceLoader):
     def get_changed_files(self) -> Sequence[SourceDiff]:
         """Return a list of changed files."""
 
-        from git import Repo
+        from git import BadName, Repo
 
         logger.info("### Getting changed files for local stashed files")
 
         repo = Repo(os.getcwd(), search_parent_directories=True)
-        diffs = repo.head.commit.diff(None)
+
+        # Diffs between HEAD and the working tree (uncommitted changes).
+        diffs = list(repo.head.commit.diff(None))
+
+        # Also include files that were stashed with `git stash`.  The stash is
+        # stored as a commit on refs/stash whose first parent is the HEAD that
+        # was current at stash time.  Diffing that parent against the stash
+        # commit yields exactly the set of changes that were stashed.
+        try:
+            stash_commit = repo.commit("refs/stash")
+            stash_base = stash_commit.parents[0]
+            existing_paths = {d.b_path for d in diffs}
+            for d in stash_base.diff(stash_commit):
+                if d.b_path not in existing_paths:
+                    diffs.append(d)
+        except (BadName, IndexError):
+            pass  # No stash exists or stash has unexpected structure.
+
         filtered_diffs = [
             d
             for d in diffs
