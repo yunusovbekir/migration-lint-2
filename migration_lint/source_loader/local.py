@@ -30,12 +30,12 @@ class LocalLoader(BaseSourceLoader):
         try:
             stash_commit = repo.commit("refs/stash")
             stash_base = stash_commit.parents[0]
-            existing_paths = {d.b_path for d in diffs}
+            existing_paths = {d.a_path or d.b_path for d in diffs}
             for d in stash_base.diff(stash_commit):
-                if d.b_path not in existing_paths:
+                if (d.a_path or d.b_path) not in existing_paths:
                     diffs.append(d)
         except (BadName, IndexError):
-            pass  # No stash exists or stash has unexpected structure.
+            logger.debug("No git stash found; skipping stash diff.")
 
         filtered_diffs = [
             d
